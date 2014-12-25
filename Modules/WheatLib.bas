@@ -52,11 +52,56 @@ Public Function ImportProject(WheatRepo As String, _
     Next
     
     ' Output section
+    If ShowPassedModules Then
+        Debug.Print "Passed Modules"
+        Debug.Print "---------------"
+        
+        If PassedModuleCol.Count = 0 Then
+            Debug.Print "No modules passed"
+        Else
+            Dim PassedModule As Variant
+            For Each PassedModule In PassedModuleCol
+                Debug.Print "* " & PassedModule
+            Next
+            Debug.Print "Total: " & PassedModuleCol.Count
+        End If
+        
+        Debug.Print ""
+    End If
+    
+    If ShowImportedModules Then
+        Debug.Print "Imported Modules"
+        Debug.Print "---------------"
+        
+        If ImportedModuleCol.Count = 0 Then
+            Debug.Print "No modules imported"
+        Else
+            Dim ImportedModule As Variant, ImportedModuleCount As Long
+            ImportedModuleCount = 0
+            For Each ImportedModule In ImportedModuleCol
+                ' Check if it an excepted module
+                If ShowIgnoredExceptModules And _
+                    InLikeArray(CStr(ImportedModule), WheatConfig.PassImportModules) And _
+                    InLikeArray(CStr(ImportedModule), WheatConfig.PassExceptImportModules) _
+                Then
+                    Debug.Print "! " & ImportedModule
+                    ImportedModuleCount = ImportedModuleCount + 1
+                Else
+                    Debug.Print "+ " & ImportedModule
+                End If
+                
+            Next
+            Debug.Print "Total: " & ImportedModuleCol.Count & _
+                IIf(ImportedModuleCount > 0, " / Excepted: " & ImportedModuleCount, "")
+        End If
+        Debug.Print ""
+    End If
     
 End Function
 
 '# This centralizes how modules are imported
 Private Sub ImportModule(Modules As VBComponents, ModulePath As String, ModuleNameID As String, ModuleExt As String, ModuleSource As VBComponent)
+    Dim TmpModule As VBComponent
     If ModuleSource Is Nothing Then ' If the module does not exist, import it right away
         If Ext = SHEET_EXTENSION Then ' If it is sheet code, you can't import normally
             ' You have to create the sheet and copy the code
@@ -68,7 +113,7 @@ Private Sub ImportModule(Modules As VBComponents, ModulePath As String, ModuleNa
             Set SheetModule = GetModule(NewSheet.CodeName)
             Set TmpModule = Modules.Import(ModulePath)
                 
-            CopyCode TmpModule, SheetModule
+            'CopyCode TmpModule, SheetModule
             Modules.Remove TmpModule
         Else ' All others import normally
             Modules.Import ModulePath
@@ -82,13 +127,13 @@ Private Sub ImportModule(Modules As VBComponents, ModulePath As String, ModuleNa
                 ' Then we copy the codes to the target sheet
                 Set TmpModule = Modules.Import(ModulePath)
                 
-                CopyCode TmpModule, Module
+                'CopyCode TmpModule, ModuleSource
                 Modules.Remove TmpModule
             Case Else
-                If Module.Name = "ThisWorkbook" Then ' Special case for the active workbook
+                If ModuleSource.Name = "ThisWorkbook" Then ' Special case for the active workbook
                     Set TmpModule = Modules.Import(ModulePath)
                 
-                    CopyCode TmpModule, ModuleSource
+                    'CopyCode TmpModule, ModuleSource
                     Modules.Remove TmpModule
                 Else
                     Modules.Remove ModuleSource
@@ -159,7 +204,9 @@ End Function
 Public Function AsFileName(File As String) As String
     Const WINDOWS_SEPARATOR As String = "."
     If InStr(File, WINDOWS_SEPARATOR) > 0 Then
-        AsFileName = Split(File, ".")(0)
+        Dim FileExt As String
+        FileExt = AsFileExtension(File)
+        AsFileName = Replace(File, "." & FileExt, "")
     Else
         AsFileName = File
     End If
