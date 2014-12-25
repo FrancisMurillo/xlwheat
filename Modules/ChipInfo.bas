@@ -6,3 +6,5 @@ Public Sub WriteInfo()
     ChipReadInfo.Modules = Array( _
         "Wheat", "WheatLib", "WheatConfig")
 End Sub
+
+

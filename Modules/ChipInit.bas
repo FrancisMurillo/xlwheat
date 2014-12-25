@@ -6,7 +6,7 @@ Attribute VB_Name = "ChipInit"
 'Configurations
 '===========================
 '# This HTTP URL is where the Chip Workbook is stored
-Public Const REPO_URL As String = "http://github.com/FrancisMurillo/chip/raw/0.1-poc/chip-RELEASE.xlsm"
+Public Const REPO_URL As String = "http://github.com/FrancisMurillo/chip/raw/master/chip-RELEASE.xlsm"
 Public Const DEPENDENCY_LIST As String = "Microsoft Visual Basic for Applications Extensibility *;Microsoft Scripting Runtime"
 Public Const LIST_DELIMITER As String = ";"
 
@@ -191,7 +191,7 @@ End Sub
 '@ Exception: Propagate
 Public Function CheckDependencies(Dependencies As Variant) As Boolean
     Dim References As Variant
-    References = ListProjectReferences()
+    References = ListProjectReferences
         
     Dim Depedency As Variant, Reference As Variant, IsFound As Boolean
     For Each Dependency In Dependencies
@@ -216,7 +216,6 @@ End Function
 '# Clears the intermediate screen
 Public Sub ClearScreen()
     Application.SendKeys "^g ^a {DEL}"
-    DoEvents
 End Sub
 
 '# Removes a module whether it exists or not
@@ -336,13 +335,10 @@ End Function
 '# This is used for setting up the test workbook to have the correct references
 '@ Return: A zero-based array of references
 Public Function ListProjectReferenceObjects() As Variant
-    Dim VBProj As VBIDE.VBProject
-    Set VBProj = Application.VBE.ActiveVBProject
-    
     Dim ReferenceLength As Integer, Index As Long
     Dim References As Variant
     
-    ReferenceLength = VBProj.References.Count
+    ReferenceLength = ActiveWorkbook.VBProject.References.Count
     If ReferenceLength = 0 Then
         ListProjectReferences = Array()
         Exit Function
@@ -350,8 +346,8 @@ Public Function ListProjectReferenceObjects() As Variant
     
     References = Array()
     ReDim References(1 To ReferenceLength)
-    For Index = 1 To VBProj.References.Count
-        Set References(Index) = VBProj.References.Item(Index)
+    For Index = 1 To ActiveWorkbook.VBProject.References.Count
+        Set References(Index) = ActiveWorkbook.VBProject.References.Item(Index)
     Next
     
     ReDim Preserve References(0 To ReferenceLength - 1)
