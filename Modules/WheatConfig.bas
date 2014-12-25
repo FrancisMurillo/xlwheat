@@ -10,12 +10,27 @@ Attribute VB_Name = "WheatConfig"
 '# The name of the project folder, an absolute or relative path.
 Public Const PROJECT_REPO As String = "wheat-src"
 
-'# IGNORE_MODULE
-'# An array of module names
-'# Ignore wheat lib as well
-Public IGNORE_MODULE As Variant
+'# EXPORT Options
+Public Const SHOW_EXPORTED_MODULES As Boolean = True
+Public Const SHOW_IGNORED_MODULES As Boolean = True
+Public Const SHOW_IGNORED_EXCEPT_MODULES As Boolean = True
+
+Public IgnoreExportModules As Variant ' Modules you want to ignore when exporting
+Public IgnoreExceptExportModules As Variant ' Modules you want to export regardless when ignored
+
+'# IMPORT Options
+Public Const SHOW_IMPORTED_MODULES As Boolean = True
+Public Const SHOW_PASSED_MODULES As Boolean = True
+Public Const SHOW_PASSED_EXCEPT_MODULES As Boolean = True
+
+Public PassImportModules As Variant ' Modules you want to ignore during import
+Public PassExceptImportModules As Variant ' Modules that are exempt from the ignore import filter
 
 Public Sub InitializeVariables()
-    IGNORE_MODULE = Array("WheatLib", "Wheat")
+    IgnoreExportModules = Array("Chip*", "Vase*", "ModuleIgnore*", "Sheet*", "*Form*")
+    IgnoreExceptExportModules = Array("Sandbox", "ModuleIgnoreNot")
+    
+    PassImportModules = Array("*Config", "Wheat*")
+    PassExceptImportModules = Array()
 End Sub
 
