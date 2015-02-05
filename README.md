@@ -12,13 +12,13 @@ This is called *wheat* because of two words: weak and Git. The project idea was 
 **To God I plant these seed, may it turn into a forest**
 
 quick start
-====
+-----------
 
-This is a <a href="https://github.com/FrancisMurillo/chip">chip</a> project, so you can download this via *Chip.ChipOnFromRepo "Vase"* or if you want to install it via importing module. Just import these three modules in your project.
+This is a <a href="https://github.com/FrancisMurillo/xlchip">chip</a> project, so you can download this via *Chip.ChipOnFromRepo "Vase"* or if you want to install it via importing module. Just import these three modules in your project.
 
-1. <a href="https://raw.githubusercontent.com/FrancisMurillo/wheat/master/Modules/Vase.bas">Wheat.bas</a>
-2. <a href="https://raw.githubusercontent.com/FrancisMurillo/wheat/master/Modules/VaseLib.bas">WheatLib.bas</a>
-3. <a href="https://raw.githubusercontent.com/FrancisMurillo/wheat/master/Modules/VaseAssert.bas">WheatConifg.bas</a>
+1. <a href="https://raw.githubusercontent.com/FrancisMurillo/xlwheat/master/Modules/Vase.bas">Wheat.bas</a>
+2. <a href="https://raw.githubusercontent.com/FrancisMurillo/xlwheat/master/Modules/VaseLib.bas">WheatLib.bas</a>
+3. <a href="https://raw.githubusercontent.com/FrancisMurillo/xlwheat/master/Modules/VaseAssert.bas">WheatConifg.bas</a>
 
 And include in your project references the following.
 
@@ -53,7 +53,7 @@ This will copy the code from each of the module to its corresponding modules. I 
 
 
 import and export filtering
-====
+---------------------------
 
 There is one section I'd like to elaborate before going trigger happy with importing and exporting code. This is the export and import filtering. Check out the default snippet for the configuration file.
 
@@ -86,6 +86,6 @@ The same goes with Import and Pass. However, I set the default to deny importing
 So in way, this is just a simple filtering mechanism that you should tweak for your own needs. 
 
 what's next
-====
+-----------
 
 I'm pretty happy with the tool right now but the one thing I can say is that this hasn't been tested on Word or Access. Although I would not develop there, it might be a feasible use case. The options are good enough
