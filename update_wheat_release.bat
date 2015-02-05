@@ -1,1 +1,1 @@
-COPY /Y ..\wheat.xlsm .\wheat-RELEASE.xlsm
+COPY /Y ..\xlwheat.xlsm .\xlwheat-RELEASE.xlsm
