@@ -5,7 +5,7 @@ A code export and import tool for VBA since VB has none.
 
 So my first project with VBA Excel left me wanting to use Git. But since the code stayed inside the built-in IDE and exporting the modules one at a time is tedious and tiring, our team just used notepad to copy and paste code segments. Just thinking back again, it gives me chills.
 
-So Wheat was born this exports and imports the code for you, it recreates the same folder structure to make it look the code seamless. Once you've exported the code, open the terminal and commit those changes and push it to the repo; on the flip side, you can pull first the code then import the code. This is better than copy pasting so to say.
+So Wheat was born. This exports and imports the code for you, it recreates the same folder structure to make it look the code seamless. Once you've exported the code, open the terminal and commit those changes and push it to the repo; on the flip side, you can pull first the code then import the code. This is better than copy pasting so to say.
 
 This is called *wheat* because of two words: weak and Git. The project idea was it's not a VCS, it exports and imports the code for you, let the real VCS handle the legwork. 
 
