@@ -23,7 +23,7 @@ This is a <a href="https://github.com/FrancisMurillo/xlchip">chip</a> project, s
 And include in your project references the following.
 
 1. **Microsoft Visual Basic for Applications Extensibility 5.3** - Any version would do but it has been tested with version 5.3
-2. **Microsoft Scripting Runtime**
+2. **Microsoft Scripting Runtime** - Also make sure you enable *Trust Access to the VBA project object model* to allow this reference to work. This can be found in the *Trust Center* under *Macro Settings*
 
 So before we see anything, we just need to alter one line in *WheatConfig.bas* . We need to change the PROJECT_REPO constant.
 
